@@ -62,4 +62,6 @@ function Friend({ friend }) {
   );
 }
 
-function 
+function AddFriendForm() {
+  return;
+}
