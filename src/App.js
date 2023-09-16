@@ -52,7 +52,7 @@ export default function App() {
     setSelectedFriend((curFriend) =>
       curFriend?.id === friend.id ? null : friend
     );
-    showFriend(false);
+    setshowFriend(false);
   }
 
   return (
@@ -92,6 +92,7 @@ function FriendList({ friends, onSelection, selectedFriend }) {
 }
 
 function Friend({ friend, onSelection, selectedFriend }) {
+  //comparing the selected friend to the friend object
   const isSelected = selectedFriend?.id === friend.id;
   return (
     <li className={isSelected ? "selected" : ""}>
@@ -179,6 +180,7 @@ function FormSplitBill({ selectedFriend }) {
         <option value="user">You</option>
         <option value="friend">{selectedFriend.name}</option>
       </select>
+      <Button>Split bill</Button>
     </form>
   );
 }
