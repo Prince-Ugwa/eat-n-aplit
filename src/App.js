@@ -30,12 +30,12 @@ function Button({ children, onClick }) {
 }
 
 export default function App() {
-  //LIFTING STATE to be make display in ui possible
+  //LIFTING STATE to   make display in ui possible
   const [friends, setFriends] = useState(initialFriends);
   ////////////////////////////
   const [showFriend, setshowFriend] = useState(false);
 
-  //selecting friend to share bill
+  //selecting friend to share bill with
   const [selectedFriend, setSelectedFriend] = useState(null);
 
   function handleShowFriend() {
@@ -50,13 +50,20 @@ export default function App() {
   function handleSelectFriend(friend) {
     // setSelectedFriend(friend);
     setSelectedFriend((curFriend) =>
-      curFriend?.id === friend.id ? null : friend
+      curFriend?.id === friend?.id ? null : friend
     );
     setshowFriend(false);
   }
+
+  //this function update the balance of each friends either the theere is a debt or the user and frien are even
   function handleSplitBill(value) {
-    console.log(value);
-    // setFriends((friends) => friends.map((friend) => [...friend, friend]));
+    setFriends((friends) =>
+      friends.map((friend) =>
+        friend.id === selectedFriend.id
+          ? { ...friend, balance: friend.balance + value }
+          : friend
+      )
+    );
   }
   return (
     <div className="app">
@@ -181,6 +188,8 @@ function FormSplitBill({ selectedFriend, onSplitBill }) {
     e.preventDefault();
     if (!bill || !expenseValue) return;
     onSplitBill(whoIsPaying === "user" ? paidByFriend : -expenseValue);
+    setBill("");
+    setExpenseValue("");
   }
   return (
     <form className="form-split-bill" onSubmit={handleSubmit}>
